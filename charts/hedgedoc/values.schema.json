@@ -9,7 +9,6 @@
     "type": "object",
     "properties": {
         "image": {
-            "$id": "#/properties/image",
             "type": "object",
             "title": "Chart image object",
             "description": "An explanation about the purpose of this instance.",
@@ -20,21 +19,18 @@
             ],
             "properties": {
                 "repository": {
-                    "$id": "#/properties/image/properties/repository",
                     "default": "ghcr.io/linuxserver/hedgedoc",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image repository",
                     "type": "string"
                 },
                 "pullPolicy": {
-                    "$id": "#/properties/image/properties/pullPolicy",
                     "default": "IfNotPresent",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image pull policy",
                     "type": "string"
                 },
                 "tag": {
-                    "$id": "#/properties/image/properties/tag",
                     "default": "version-1.9.0",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image tag",
@@ -43,7 +39,6 @@
             }
         },
         "secret": {
-            "$id": "#/properties/secret",
             "default": {},
             "description": "An explanation about the purpose of this instance.",
             "required": [],
@@ -51,7 +46,6 @@
             "type": "object"
         },
         "env": {
-            "$id": "#/properties/env",
             "default": {},
             "description": "An explanation about the purpose of this instance.",
             "required": [],
@@ -59,7 +53,6 @@
             "type": "object"
         },
         "service": {
-            "$id": "#/properties/service",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "port"
@@ -68,7 +61,6 @@
             "type": "object",
             "properties": {
                 "port": {
-                    "$id": "#/properties/service/properties/port",
                     "description": "An explanation about the purpose of this instance.",
                     "required": [
                         "port"
@@ -77,7 +69,6 @@
                     "type": "object",
                     "properties": {
                         "port": {
-                            "$id": "#/properties/service/properties/port/properties/port",
                             "default": 3000,
                             "description": "An explanation about the purpose of this instance.",
                             "title": "Service port number",
@@ -88,7 +79,6 @@
             }
         },
         "ingress": {
-            "$id": "#/properties/ingress",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "enabled"
@@ -97,7 +87,6 @@
             "type": "object",
             "properties": {
                 "enabled": {
-                    "$id": "#/properties/ingress/properties/enabled",
                     "default": false,
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Enable ingress",
@@ -106,14 +95,12 @@
             }
         },
         "persistence": {
-            "$id": "#/properties/persistence",
             "description": "An explanation about the purpose of this instance.",
             "required": [],
             "title": "Persistence object",
             "type": "object",
             "properties": {
                 "config": {
-                    "$id": "#/properties/persistence/properties/config",
                     "type": "object",
                     "title": "config PVC",
                     "description": "An explanation about the purpose of this instance.",
@@ -124,21 +111,18 @@
                     ],
                     "properties": {
                         "enabled": {
-                            "$id": "#/properties/persistence/properties/config/properties/enabled",
                             "type": "boolean",
                             "title": "Enable config PVC",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "emptyDir": {
-                            "$id": "#/properties/persistence/properties/config/properties/emptyDir",
                             "type": "boolean",
                             "title": "config emptyDir",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "mountPath": {
-                            "$id": "#/properties/persistence/properties/config/properties/mountPath",
                             "default": "/config",
                             "description": "An explanation about the purpose of this instance.",
                             "title": "config mount path",
@@ -149,7 +133,6 @@
             }
         },
         "mariadb": {
-            "$id": "#/properties/mariadb",
             "type": "object",
             "title": "The mariadb schema",
             "description": "An explanation about the purpose of this instance.",
@@ -158,27 +141,23 @@
             ],
             "properties": {
                 "enabled": {
-                    "$id": "#/properties/mariadb/properties/enabled",
                     "type": "boolean",
                     "title": "Enable mariadb",
                     "description": "An explanation about the purpose of this instance.",
                     "default": false
                 },
                 "secret": {
-                    "$id": "#/properties/mariadb/properties/secret",
                     "type": "object",
                     "title": "Mariadb secret",
                     "description": "An explanation about the purpose of this instance.",
                     "properties": {
                         "MYSQL_ROOT_PASSWORD": {
-                            "$id": "#/properties/mariadb/properties/secret/properties/MYSQL_ROOT_PASSWORD",
                             "type": "string",
                             "title": "mariadb root password",
                             "description": "An explanation about the purpose of this instance.",
                             "default": "projectsend-pass"
                         },
                         "MYSQL_PASSWORD": {
-                            "$id": "#/properties/mariadb/properties/secret/properties/MYSQL_PASSWORD",
                             "type": "string",
                             "title": "mariadb password",
                             "description": "An explanation about the purpose of this instance.",
@@ -187,21 +166,18 @@
                     }
                 },
                 "env": {
-                    "$id": "#/properties/mariadb/properties/env",
                     "description": "An explanation about the purpose of this instance.",
                     "required": [],
                     "title": "mariadb env variables",
                     "type": "object",
                     "properties": {
                         "MYSQL_USER": {
-                            "$id": "#/properties/mariadb/properties/env/properties/MYSQL_USER",
                             "default": "projectsend",
                             "description": "An explanation about the purpose of this instance.",
                             "title": "mariadb user",
                             "type": "string"
                         },
                         "MYSQL_DATABASE": {
-                            "$id": "#/properties/mariadb/properties/env/properties/MYSQL_DATABASE",
                             "default": "projectsend-mariadb",
                             "description": "An explanation about the purpose of this instance.",
                             "title": "mariadb database",
@@ -210,7 +186,6 @@
                     }
                 },
                 "fullnameOverride": {
-                    "$id": "#/properties/mariadb/properties/fullnameOverride",
                     "type": "string",
                     "title": "Set the entire name definition",
                     "description": "Set the entire name definition.",

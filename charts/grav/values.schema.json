@@ -9,7 +9,6 @@
     "type": "object",
     "properties": {
         "image": {
-            "$id": "#/properties/image",
             "type": "object",
             "title": "Chart image object",
             "description": "An explanation about the purpose of this instance.",
@@ -20,21 +19,18 @@
             ],
             "properties": {
                 "repository": {
-                    "$id": "#/properties/image/properties/repository",
                     "default": "ghcr.io/linuxserver/grav",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image repository",
                     "type": "string"
                 },
                 "pullPolicy": {
-                    "$id": "#/properties/image/properties/pullPolicy",
                     "default": "IfNotPresent",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image pull policy",
                     "type": "string"
                 },
                 "tag": {
-                    "$id": "#/properties/image/properties/tag",
                     "default": "version-1.7.18",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image tag",
@@ -43,7 +39,6 @@
             }
         },
         "env": {
-            "$id": "#/properties/env",
             "default": {},
             "description": "An explanation about the purpose of this instance.",
             "required": [],
@@ -51,7 +46,6 @@
             "type": "object"
         },
         "service": {
-            "$id": "#/properties/service",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "port"
@@ -60,7 +54,6 @@
             "type": "object",
             "properties": {
                 "port": {
-                    "$id": "#/properties/service/properties/port",
                     "description": "An explanation about the purpose of this instance.",
                     "required": [
                         "port"
@@ -69,7 +62,6 @@
                     "type": "object",
                     "properties": {
                         "port": {
-                            "$id": "#/properties/service/properties/port/properties/port",
                             "default": 80,
                             "description": "An explanation about the purpose of this instance.",
                             "title": "Service port number",
@@ -80,7 +72,6 @@
             }
         },
         "ingress": {
-            "$id": "#/properties/ingress",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "enabled"
@@ -89,7 +80,6 @@
             "type": "object",
             "properties": {
                 "enabled": {
-                    "$id": "#/properties/ingress/properties/enabled",
                     "default": false,
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Enable ingress",
@@ -98,14 +88,12 @@
             }
         },
         "persistence": {
-            "$id": "#/properties/persistence",
             "description": "An explanation about the purpose of this instance.",
             "required": [],
             "title": "Persistence object",
             "type": "object",
             "properties": {
                 "config": {
-                    "$id": "#/properties/persistence/properties/config",
                     "type": "object",
                     "title": "config PVC",
                     "description": "An explanation about the purpose of this instance.",
@@ -116,21 +104,18 @@
                     ],
                     "properties": {
                         "enabled": {
-                            "$id": "#/properties/persistence/properties/config/properties/enabled",
                             "type": "boolean",
                             "title": "Enable config PVC",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "emptyDir": {
-                            "$id": "#/properties/persistence/properties/config/properties/emptyDir",
                             "type": "boolean",
                             "title": "config emptyDir",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "mountPath": {
-                            "$id": "#/properties/persistence/properties/config/properties/mountPath",
                             "default": "/config",
                             "description": "An explanation about the purpose of this instance.",
                             "title": "config mount path",

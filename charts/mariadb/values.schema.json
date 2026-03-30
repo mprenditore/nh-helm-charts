@@ -9,7 +9,6 @@
     "type": "object",
     "properties": {
         "image": {
-            "$id": "#/properties/image",
             "type": "object",
             "title": "Chart image object",
             "description": "An explanation about the purpose of this instance.",
@@ -20,21 +19,18 @@
             ],
             "properties": {
                 "repository": {
-                    "$id": "#/properties/image/properties/repository",
                     "default": "ghcr.io/linuxserver/mariadb",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image repository",
                     "type": "string"
                 },
                 "pullPolicy": {
-                    "$id": "#/properties/image/properties/pullPolicy",
                     "default": "IfNotPresent",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image pull policy",
                     "type": "string"
                 },
                 "tag": {
-                    "$id": "#/properties/image/properties/tag",
                     "default": "version-110.4.21mariabionic",
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Image tag",
@@ -43,7 +39,6 @@
             }
         },
         "secret": {
-            "$id": "#/properties/secret",
             "type": "object",
             "title": "The secret schema",
             "description": "An explanation about the purpose of this instance.",
@@ -59,7 +54,6 @@
             ],
             "properties": {
                 "MYSQL_ROOT_PASSWORD": {
-                    "$id": "#/properties/secret/properties/MYSQL_ROOT_PASSWORD",
                     "default": "",
                     "description": "Set this to root password for installation (minimum 4 characters)",
                     "examples": [
@@ -69,7 +63,6 @@
                     "type": "string"
                 },
                 "MYSQL_PASSWORD": {
-                    "$id": "#/properties/secret/properties/MYSQL_PASSWORD",
                     "default": "",
                     "description": "Set this to the password you want to use for you MYSQL_USER (minimum 4 characters)",
                     "examples": [
@@ -82,7 +75,6 @@
             "additionalProperties": false
         },
         "env": {
-            "$id": "#/properties/env",
             "default": {},
             "description": "An explanation about the purpose of this instance.",
             "examples": [
@@ -99,7 +91,6 @@
             "type": "object",
             "properties": {
                 "TZ": {
-                    "$id": "#/properties/env/properties/TZ",
                     "default": "",
                     "description": "Specify a timezone to use",
                     "examples": [
@@ -109,7 +100,6 @@
                     "type": "string"
                 },
                 "PUID": {
-                    "$id": "#/properties/env/properties/PUID",
                     "default": "",
                     "description": "An explanation about the purpose of this instance.",
                     "examples": [
@@ -119,7 +109,6 @@
                     "type": "string"
                 },
                 "PGID": {
-                    "$id": "#/properties/env/properties/PGID",
                     "default": "",
                     "description": "An explanation about the purpose of this instance.",
                     "examples": [
@@ -129,7 +118,6 @@
                     "type": "string"
                 },
                 "MYSQL_USER": {
-                    "$id": "#/properties/env/properties/MYSQL_USER",
                     "default": "",
                     "description": "This user will have superuser access to the database specified by MYSQL_DATABASE",
                     "examples": [
@@ -139,7 +127,6 @@
                     "type": "string"
                 },
                 "REMOTE_SQL": {
-                    "$id": "#/properties/env/properties/REMOTE_SQL",
                     "default": "",
                     "description": "Set this to ingest sql files from an http/https endpoint (comma seperated array)",
                     "examples": [
@@ -149,7 +136,6 @@
                     "type": "string"
                 },
                 "MYSQL_DATABASE": {
-                    "$id": "#/properties/env/properties/MYSQL_DATABASE",
                     "type": "string",
                     "title": "The MYSQL_DATABASE schema",
                     "description": "An explanation about the purpose of this instance.",
@@ -161,7 +147,6 @@
             }
         },
         "service": {
-            "$id": "#/properties/service",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "port"
@@ -170,7 +155,6 @@
             "type": "object",
             "properties": {
                 "port": {
-                    "$id": "#/properties/service/properties/port",
                     "description": "An explanation about the purpose of this instance.",
                     "required": [
                         "port"
@@ -179,7 +163,6 @@
                     "type": "object",
                     "properties": {
                         "port": {
-                            "$id": "#/properties/service/properties/port/properties/port",
                             "default": 3306,
                             "description": "An explanation about the purpose of this instance.",
                             "title": "Service port number",
@@ -190,7 +173,6 @@
             }
         },
         "ingress": {
-            "$id": "#/properties/ingress",
             "description": "An explanation about the purpose of this instance.",
             "required": [
                 "enabled"
@@ -199,7 +181,6 @@
             "type": "object",
             "properties": {
                 "enabled": {
-                    "$id": "#/properties/ingress/properties/enabled",
                     "default": false,
                     "description": "An explanation about the purpose of this instance.",
                     "title": "Enable ingress",
@@ -208,14 +189,12 @@
             }
         },
         "persistence": {
-            "$id": "#/properties/persistence",
             "description": "An explanation about the purpose of this instance.",
             "required": [],
             "title": "Persistence object",
             "type": "object",
             "properties": {
                 "config": {
-                    "$id": "#/properties/persistence/properties/config",
                     "type": "object",
                     "title": "config PVC",
                     "description": "An explanation about the purpose of this instance.",
@@ -226,21 +205,18 @@
                     ],
                     "properties": {
                         "enabled": {
-                            "$id": "#/properties/persistence/properties/config/properties/enabled",
                             "type": "boolean",
                             "title": "Enable config PVC",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "emptyDir": {
-                            "$id": "#/properties/persistence/properties/config/properties/emptyDir",
                             "type": "boolean",
                             "title": "config emptyDir",
                             "description": "An explanation about the purpose of this instance.",
                             "default": false
                         },
                         "mountPath": {
-                            "$id": "#/properties/persistence/properties/config/properties/mountPath",
                             "default": "/config",
                             "description": "An explanation about the purpose of this instance.",
                             "title": "config mount path",
