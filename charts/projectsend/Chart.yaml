@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
-appVersion: r1295
-version: 2.0.0
+appVersion: r2029
+version: 2.0.1
 name: projectsend
 description: A self-hosted application that lets you upload files and assign them to specific clients that you create yourself
 type: application
