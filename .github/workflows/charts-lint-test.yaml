@@ -12,7 +12,7 @@ jobs:
   changes-lint:
     if: "!contains(github.event.head_commit.message, '[ci-skip]')"
     name: Detect changes for linting
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     outputs:
       matrix: |
         {
@@ -21,16 +21,16 @@ jobs:
       detected: ${{ steps.list-changed.outputs.detected }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Set up chart-testing
-      uses: helm/chart-testing-action@v2.1.0
+      uses: helm/chart-testing-action@v2.7.0
 
     - name: Install Dev tools
       run: |
-        sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq
+        sudo wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -O /usr/bin/yq
         sudo chmod +x /usr/bin/yq
 
     - name: Run chart-testing (list-changed)
@@ -40,15 +40,15 @@ jobs:
         CHARTS=$(ct list-changed --config .github/ct-lint.yaml)
         CHARTS_JSON=$(echo "${CHARTS}" | jq -R -s -c 'split("\n")[:-1]')
         OUTPUT_JSON=$(echo "{\"excluded\": ${EXCLUDED}, \"all\": ${CHARTS_JSON}}" | jq -c '.all-.excluded')
-        echo ::set-output name=charts::${OUTPUT_JSON}
+        echo "charts=${OUTPUT_JSON}" >> "$GITHUB_OUTPUT"
         if [[ $(echo ${OUTPUT_JSON} | jq -c '. | length') -gt 0 ]]; then
-          echo "::set-output name=detected::true"
+          echo "detected=true" >> "$GITHUB_OUTPUT"
         fi
 
   changes-install:
     if: "!contains(github.event.head_commit.message, '[ci-skip]')"
     name: Detect changes for install
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     outputs:
       matrix: |
         {
@@ -57,16 +57,16 @@ jobs:
       detected: ${{ steps.list-changed.outputs.detected }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Set up chart-testing
-      uses: helm/chart-testing-action@v2.1.0
+      uses: helm/chart-testing-action@v2.7.0
 
     - name: Install Dev tools
       run: |
-        sudo wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -O /usr/bin/yq
+        sudo wget https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64 -O /usr/bin/yq
         sudo chmod +x /usr/bin/yq
 
     - name: Run chart-testing (list-changed)
@@ -76,9 +76,9 @@ jobs:
         CHARTS=$(ct list-changed --config .github/ct-install.yaml)
         CHARTS_JSON=$(echo "${CHARTS}" | jq -R -s -c 'split("\n")[:-1]')
         OUTPUT_JSON=$(echo "{\"excluded\": ${EXCLUDED}, \"all\": ${CHARTS_JSON}}" | jq -c '.all-.excluded')
-        echo ::set-output name=charts::${OUTPUT_JSON}
+        echo "charts=${OUTPUT_JSON}" >> "$GITHUB_OUTPUT"
         if [[ $(echo ${OUTPUT_JSON} | jq -c '. | length') -gt 0 ]]; then
-          echo "::set-output name=detected::true"
+          echo "detected=true" >> "$GITHUB_OUTPUT"
         fi
 
   lint:
@@ -86,24 +86,22 @@ jobs:
     - changes-lint
     if: "!contains(github.event.head_commit.message, '[ci-skip]') && needs.changes-lint.outputs.detected == 'true'"
     name: Lint charts
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Install Helm
-      uses: azure/setup-helm@v1.1
-      with:
-        version: v3.5.3
+      uses: azure/setup-helm@v4
 
-    - uses: actions/setup-python@v2.2.2
+    - uses: actions/setup-python@v5
       with:
-        python-version: 3.7
+        python-version: '3.x'
 
     - name: Set up chart-testing
-      uses: helm/chart-testing-action@v2.1.0
+      uses: helm/chart-testing-action@v2.7.0
 
     - name: Run chart-testing (lint)
       id: lint
@@ -114,10 +112,10 @@ jobs:
     - lint
     if: "!contains(github.event.head_commit.message, '[ci-skip]')"
     name: Run unit tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -125,14 +123,12 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y jq libjq-dev
 
     - name: Install Helm
-      uses: azure/setup-helm@v1.1
-      with:
-        version: v3.5.3
+      uses: azure/setup-helm@v4
 
     - name: Install Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: '3.3'
 
     - name: Install dependencies
       env:
@@ -154,24 +150,22 @@ jobs:
       matrix: ${{ fromJson(needs.changes-install.outputs.matrix) }}
       fail-fast: true
       max-parallel: 15
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Install Helm
-      uses: azure/setup-helm@v1.1
-      with:
-        version: v3.5.3
+      uses: azure/setup-helm@v4
 
-    - uses: actions/setup-python@v2.2.2
+    - uses: actions/setup-python@v5
       with:
-        python-version: 3.7
+        python-version: '3.x'
 
     - name: Set up chart-testing
-      uses: helm/chart-testing-action@v2.1.0
+      uses: helm/chart-testing-action@v2.7.0
 
     - name: Create k3d cluster
       uses: nolar/setup-k3d-k3s@v1
@@ -192,7 +186,7 @@ jobs:
     - install
     if: ${{ always() }}
     name: Install successful
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
     - name: Check install matrix status
       if: ${{ !contains(github.event.head_commit.message, '[ci-skip]') && needs.changes-install.outputs.detected == 'true' && needs.install.result != 'success' }}
