@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 appVersion: "110.4.21"
-version: 1.0.6
+version: 1.0.7
 name: mariadb
 description: The open source relational database
 type: application
@@ -10,7 +10,7 @@ icon: "https://github.com/linuxserver/docker-templates/raw/master/linuxserver.io
 dependencies:
   - name: common
     version: ~0.1.13
-    repository: https://nicholaswilde.github.io/helm-charts/
+    repository: https://mprenditore.github.io/nh-helm-charts/
 keywords:
   - db
   - database
