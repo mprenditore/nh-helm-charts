@@ -29,6 +29,32 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+      - name: Pre-package in-repo dependencies for local resolution
+        run: |
+          OWNER=$(cut -d'/' -f1 <<< "$GITHUB_REPOSITORY")
+          REPO=$(cut -d'/' -f2 <<< "$GITHUB_REPOSITORY")
+          PAGES_URL="https://${OWNER}.github.io/${REPO}"
+
+          # Pre-package common so it's available before mariadb/projectsend are packaged
+          mkdir -p .cr-release-packages
+          helm package charts/common --destination .cr-release-packages
+
+          # Build a local index and serve it in the background
+          helm repo index .cr-release-packages
+          python3 -m http.server 8080 --directory .cr-release-packages &
+          sleep 2
+
+          # Register the local server; also add upstream as fallback for unmodified charts
+          helm repo add fork-local http://localhost:8080
+          helm repo add upstream https://nicholaswilde.github.io/helm-charts/ || true
+          helm repo update
+
+          # Temporarily redirect any Chart.yaml dep that points at this fork's Pages URL
+          # to the local server so helm dep update can resolve new versions mid-run.
+          # This only affects the working copy used during packaging; nothing is committed.
+          find charts -name "Chart.yaml" \
+            -exec sed -i "s|${PAGES_URL}|http://localhost:8080|g" {} +
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         with:
